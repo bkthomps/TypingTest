@@ -1,7 +1,7 @@
 /**
  * Bailey Thompson <br>
- * Typing Test (1.0.0) <br>
- * 21 January 2016 <br>
+ * Typing Test (1.1.0) <br>
+ * 1 February 2016 <br>
  * <br>
  * To start the typing test start typing the second line of words.&nbsp;They will then disappear until no words are 
  * left, and at that point, the second line of words will be the first line of words.&nbsp;The words are generated from 
