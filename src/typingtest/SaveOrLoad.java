@@ -20,7 +20,7 @@ public class SaveOrLoad {
 
     private static final Path FILE = Paths.get("TypingData.txt");
     private static final Path DATABASE = Paths.get("Words.txt");
-    private static final int LENGTH_OF_DATABASE = 9903;
+    private static final int LENGTH_OF_DATABASE = 9100;
 
     private SaveOrLoad() {
         //not used
