@@ -26,7 +26,7 @@ class SaveOrLoad {
         //not used
     }
 
-    public static void save() {
+    static void save() {
         String saveFile = Integer.toString(Data.highCPM) + " " + Integer.toString(Data.highWPM) + " "
                 + Integer.toString(Data.lastCPM) + " " + Integer.toString(Data.lastWPM);
         byte data[] = saveFile.getBytes();
@@ -37,7 +37,7 @@ class SaveOrLoad {
         }
     }
 
-    public static int[] load() {
+    static int[] load() {
         String saveFile = null;
         try {
             Files.createFile(FILE);
@@ -57,7 +57,7 @@ class SaveOrLoad {
         if (saveFile == null) {
             saveFile = "0 0 0 0";
         }
-        //create String array from String that is seperated by spaces
+        //create String array from String that is separated by spaces
         String[] database = saveFile.split("\\s+");
         for (int i = 0; i < database.length; i++) {
             database[i] = database[i].replaceAll("_", " ");
@@ -69,7 +69,7 @@ class SaveOrLoad {
         return nums;
     }
 
-    public static String[] loadDatabase() {
+    static String[] loadDatabase() {
         String saveFile[] = new String[LENGTH_OF_DATABASE];
         int index = 0;
         try (InputStream in = Files.newInputStream(DATABASE);
