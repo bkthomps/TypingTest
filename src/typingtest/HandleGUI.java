@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 /**
  * Creates and updates the GUI.
  */
-public class HandleGUI {
+class HandleGUI {
 
     private static final String SPACE = "      ";
     private static final String BIG_SPACE = SPACE + SPACE + SPACE;
@@ -29,8 +29,8 @@ public class HandleGUI {
 
     private static final String[] WORD_DATABASE = SaveOrLoad.loadDatabase();
 
-    static long startTime;
-    static boolean gameInProgress;
+    private static long startTime;
+    private static boolean gameInProgress;
 
     public void createGUI() {
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
