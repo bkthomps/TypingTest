@@ -16,7 +16,7 @@ import static java.nio.file.StandardOpenOption.WRITE;
 /**
  * Used for saving to file and loading from file.
  */
-public class SaveOrLoad {
+class SaveOrLoad {
 
     private static final Path FILE = Paths.get("TypingData.txt");
     private static final Path DATABASE = Paths.get("Words.txt");
@@ -25,7 +25,7 @@ public class SaveOrLoad {
     private SaveOrLoad() {
         //not used
     }
-    
+
     public static void save() {
         String saveFile = Integer.toString(Data.highCPM) + " " + Integer.toString(Data.highWPM) + " "
                 + Integer.toString(Data.lastCPM) + " " + Integer.toString(Data.lastWPM);
@@ -33,7 +33,7 @@ public class SaveOrLoad {
         try (OutputStream out = new BufferedOutputStream(Files.newOutputStream(FILE, WRITE, TRUNCATE_EXISTING))) {
             out.write(data, 0, data.length);
         } catch (IOException x) {
-            System.err.println(x);
+            System.err.println("Error in save method");
         }
     }
 
@@ -43,16 +43,16 @@ public class SaveOrLoad {
             Files.createFile(FILE);
         } catch (FileAlreadyExistsException x) {
             try (InputStream in = Files.newInputStream(FILE);
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+                 BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     saveFile = line;
                 }
             } catch (IOException e) {
-                System.err.println(e);
+                System.err.println("Error 1 in load method");
             }
         } catch (IOException x) {
-            System.err.println(x);
+            System.err.println("Error 2 in load method");
         }
         if (saveFile == null) {
             saveFile = "0 0 0 0";
@@ -73,14 +73,14 @@ public class SaveOrLoad {
         String saveFile[] = new String[LENGTH_OF_DATABASE];
         int index = 0;
         try (InputStream in = Files.newInputStream(DATABASE);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+             BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 saveFile[index] = line;
                 index++;
             }
         } catch (IOException e) {
-            System.err.println(e);
+            System.err.println("Error in loadDatabase method");
         }
         return saveFile;
     }
