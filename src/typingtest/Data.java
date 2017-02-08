@@ -23,7 +23,7 @@ class Data {
         //not used
     }
 
-    public static void resetValues() {
+    static void resetValues() {
         lastWPM = rightWords * TIME_IN_SECONDS_PER_ROUND / 60;
         lastCPM = lastWPM * CHAR_TO_WORD;
 
