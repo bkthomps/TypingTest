@@ -1,7 +1,7 @@
 package typingtest;
 
 /**
- * Special data type.
+ * Special data type. Contains information about the current score, the latest score, and the highest score.
  */
 class Data {
 
