@@ -1,9 +1,9 @@
 package typingtest;
 
 /**
- * Entry point.
+ * Entry point. The program starts here.
  */
-public class TypingTest {
+class TypingTest {
 
     public static void main(String[] args) {
         HandleGUI gui = new HandleGUI();
