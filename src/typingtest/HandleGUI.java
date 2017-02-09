@@ -8,46 +8,47 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
- * Creates and updates the GUI.
+ * Creates and updates the GUI. The application is vertically split into six sections. The first line of text, the
+ * second line of text, the line of text that the user types in, the statistics of the current round, the statistics
+ * of the latest round, and the statistics of the highest score.
  */
 class HandleGUI {
 
+    private static final String NAME = "Typing Test";
+    private static final ImageIcon ICON = new ImageIcon("TypingTest.png");
     private static final String SPACE = "      ";
     private static final String BIG_SPACE = SPACE + SPACE + SPACE;
     private static final String ERROR_MESSAGE = SPACE + "Error!";
 
-    private static final String NAME = "Typing Test";
-    private static final ImageIcon ICON = new ImageIcon("TypingTest.png");
-
-    private static final JFrame FRAME = new JFrame(NAME);
-    private static final JLabel TOP_WORDS = new JLabel(ERROR_MESSAGE);
-    private static final JLabel BOT_WORDS = new JLabel(ERROR_MESSAGE);
-    private static final JLabel CURRENT_WORD = new JLabel();
-    private static final JLabel TIME_LEFT = new JLabel(ERROR_MESSAGE);
-    private static final JLabel LATEST_SCORE = new JLabel(ERROR_MESSAGE);
-    private static final JLabel HIGHEST_SCORE = new JLabel(ERROR_MESSAGE);
+    private static final JFrame frame = new JFrame(NAME);
+    private static final JLabel topWords = new JLabel(ERROR_MESSAGE);
+    private static final JLabel botWords = new JLabel(ERROR_MESSAGE);
+    private static final JLabel currentWord = new JLabel();
+    private static final JLabel timeLeft = new JLabel(ERROR_MESSAGE);
+    private static final JLabel latestScore = new JLabel(ERROR_MESSAGE);
+    private static final JLabel highestScore = new JLabel(ERROR_MESSAGE);
 
     private static final String[] WORD_DATABASE = SaveOrLoad.loadDatabase();
 
     private static long startTime;
     private static boolean gameInProgress;
 
-    public void createGUI() {
-        FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        FRAME.setResizable(false);
-        FRAME.setSize(400, 400);
-        FRAME.setLocationRelativeTo(null);
-        FRAME.setIconImage(ICON.getImage());
-        FRAME.setVisible(true);
+    void createGUI() {
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setSize(400, 400);
+        frame.setLocationRelativeTo(null);
+        frame.setIconImage(ICON.getImage());
+        frame.setVisible(true);
 
-        FRAME.add(TOP_WORDS);
-        FRAME.add(BOT_WORDS);
-        FRAME.add(CURRENT_WORD);
-        FRAME.add(TIME_LEFT);
-        FRAME.add(LATEST_SCORE);
-        FRAME.add(HIGHEST_SCORE);
-        FRAME.setLayout(new GridLayout(6, 1, 0, 0));
-        FRAME.requestFocus();
+        frame.add(topWords);
+        frame.add(botWords);
+        frame.add(currentWord);
+        frame.add(timeLeft);
+        frame.add(latestScore);
+        frame.add(highestScore);
+        frame.setLayout(new GridLayout(6, 1, 0, 0));
+        frame.requestFocus();
 
         createDatabase();
         updateDisplayWords();
@@ -56,7 +57,7 @@ class HandleGUI {
     }
 
     private void keyPress() {
-        FRAME.addKeyListener(new KeyListener() {
+        frame.addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
                 updateUserWord(e.getKeyCode());
@@ -79,7 +80,8 @@ class HandleGUI {
             gameInProgress = true;
             startTime = System.nanoTime();
         } else {
-            Data.time = (int) ((System.nanoTime() - startTime) / 1000000000);
+            final int NANOSECONDS_IN_SECOND = 1000000000;
+            Data.time = (int) ((System.nanoTime() - startTime) / NANOSECONDS_IN_SECOND);
         }
         if (wordVal == 32) {
             if (Data.currentWord.equals(Data.botWords[Data.wordIndex])) {
@@ -116,7 +118,7 @@ class HandleGUI {
         }
         SaveOrLoad.save();
         updateStats();
-        CURRENT_WORD.setText(BIG_SPACE + BIG_SPACE + Data.currentWord);
+        currentWord.setText(BIG_SPACE + BIG_SPACE + Data.currentWord);
     }
 
     private void createDatabase() {
@@ -139,27 +141,23 @@ class HandleGUI {
             topTempSentence += Data.topWords[i] + " ";
             botTempSentence += Data.botWords[i] + " ";
         }
-
-        TOP_WORDS.setText(topTempSentence);
-        BOT_WORDS.setText(botTempSentence);
+        topWords.setText(topTempSentence);
+        botWords.setText(botTempSentence);
     }
 
     private String genNewWord() {
-        final int min = 0;
-        final int max = WORD_DATABASE.length - 1;
-
-        int index = (int) (Math.random() * (max - min + 1)) + min;
-        return WORD_DATABASE[index];
+        final int MIN = 0;
+        final int MAX = WORD_DATABASE.length - 1;
+        final int INDEX = (int) (Math.random() * (MAX - MIN + 1)) + MIN;
+        return WORD_DATABASE[INDEX];
     }
 
     private void resizeCurrentTestDisplay() {
         String botTempSentence = SPACE;
-
         for (int i = Data.wordIndex; i < Data.WORDS_PER_LINE; i++) {
             botTempSentence += Data.botWords[i] + " ";
         }
-
-        BOT_WORDS.setText(botTempSentence);
+        botWords.setText(botTempSentence);
     }
 
     private void updateStats() {
@@ -167,8 +165,8 @@ class HandleGUI {
         if (timeLeftInRound < 0) {
             timeLeftInRound = 0;
         }
-        TIME_LEFT.setText(SPACE + "Time Left:  " + timeLeftInRound + BIG_SPACE + "Words:  " + Data.rightWords);
-        LATEST_SCORE.setText(SPACE + "Last WPM:  " + Data.lastWPM + BIG_SPACE + "Last CPM:  " + Data.lastCPM);
-        HIGHEST_SCORE.setText(SPACE + "High WPM:  " + Data.highWPM + BIG_SPACE + "High CPM:  " + Data.highCPM);
+        timeLeft.setText(SPACE + "Time Left:  " + timeLeftInRound + BIG_SPACE + "Words:  " + Data.rightWords);
+        latestScore.setText(SPACE + "Last WPM:  " + Data.lastWPM + BIG_SPACE + "Last CPM:  " + Data.lastCPM);
+        highestScore.setText(SPACE + "High WPM:  " + Data.highWPM + BIG_SPACE + "High CPM:  " + Data.highCPM);
     }
 }
