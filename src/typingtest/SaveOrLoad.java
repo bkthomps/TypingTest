@@ -22,10 +22,6 @@ class SaveOrLoad {
     private static final Path DATABASE = Paths.get("Words.txt");
     private static final int LENGTH_OF_DATABASE = 9100;
 
-    private SaveOrLoad() {
-        //not used
-    }
-
     static void save() {
         String saveFile = Integer.toString(Data.highCPM) + " " + Integer.toString(Data.highWPM) + " "
                 + Integer.toString(Data.lastCPM) + " " + Integer.toString(Data.lastWPM);
@@ -57,16 +53,16 @@ class SaveOrLoad {
         if (saveFile == null) {
             saveFile = "0 0 0 0";
         }
-        //create String array from String that is separated by spaces
+        // Create String array from String that is separated by spaces.
         String[] database = saveFile.split("\\s+");
         for (int i = 0; i < database.length; i++) {
             database[i] = database[i].replaceAll("_", " ");
         }
-        int[] nums = new int[4];
+        final int[] numbers = new int[4];
         for (int i = 0; i < 4; i++) {
-            nums[i] = Integer.parseInt(database[i]);
+            numbers[i] = Integer.parseInt(database[i]);
         }
-        return nums;
+        return numbers;
     }
 
     static String[] loadDatabase() {
