@@ -19,10 +19,6 @@ class Data {
     static int lastCPM, lastWPM;
     static int highCPM, highWPM;
 
-    private Data() {
-        //not used
-    }
-
     static void resetValues() {
         lastWPM = rightWords * TIME_IN_SECONDS_PER_ROUND / 60;
         lastCPM = lastWPM * CHAR_TO_WORD;
