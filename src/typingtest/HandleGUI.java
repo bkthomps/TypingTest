@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 /**
  * Creates and updates the GUI. The application is vertically split into six sections. The first line of text, the
@@ -34,7 +35,7 @@ class HandleGUI {
     private static boolean gameInProgress;
 
     void createGUI() {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setSize(400, 400);
         frame.setLocationRelativeTo(null);
@@ -65,12 +66,12 @@ class HandleGUI {
 
             @Override
             public void keyTyped(KeyEvent e) {
-                //does nothing
+                // Do nothing.
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                //does nothing
+                // Do nothing.
             }
         });
     }
